@@ -24,7 +24,6 @@
   --text-code-type: #22c55e;
   --logo-text: #16f2b3;
 
-  /* Splash Screen Dark Mode */
   --splash-bg: radial-gradient(circle at 50% 42%, rgba(22, 242, 179, 0.16), transparent 30%),
                radial-gradient(circle at 28% 72%, rgba(236, 72, 153, 0.22), transparent 34%),
                linear-gradient(135deg, #0d1224 0%, #10172f 48%, #1a1443 100%);
@@ -59,7 +58,6 @@ html.light {
   --text-code-type: #16a34a;
   --logo-text: #ec4899;
 
-  /* Splash Screen Light Mode */
   --splash-bg: radial-gradient(circle at 50% 42%, rgba(22, 242, 179, 0.12), transparent 35%),
                radial-gradient(circle at 28% 72%, rgba(236, 72, 153, 0.18), transparent 40%),
                linear-gradient(135deg, #fef2f2 0%, #f5f3ff 48%, #e0f2fe 100%);
@@ -80,8 +78,6 @@ body {
 
 /* ============================================
    SPLASH SCREEN
-   "SOHAM PATEL" = 11 chars (including space)
-   width: 11ch, steps(11, end)
    ============================================ */
 
 .splash_logo_wrapper {
@@ -115,29 +111,10 @@ body {
 }
 
 @keyframes splash-grow {
-  0% {
-    transform: scale(0);
-  }
-
-  10% {
-    transform: scale(1);
-    border-radius: 0%;
-    height: 100%;
-    width: 100%;
-  }
-
-  90% {
-    transform: scale(1);
-    border-radius: 0%;
-    height: 100%;
-    width: 100%;
-  }
-
-  100% {
-    transform: scale(0);
-    transform-origin: 50% 50%;
-    border-radius: 100%;
-  }
+  0%   { transform: scale(0); }
+  10%  { transform: scale(1); border-radius: 0%; height: 100%; width: 100%; }
+  90%  { transform: scale(1); border-radius: 0%; height: 100%; width: 100%; }
+  100% { transform: scale(0); transform-origin: 50% 50%; border-radius: 100%; }
 }
 
 #logo {
@@ -164,7 +141,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(8rem, 28vw, 19rem);
+  width: clamp(10rem, 34vw, 19rem);
   aspect-ratio: 1.23;
   padding: 0.6rem;
   border: 1px solid var(--splash-logo-border);
@@ -182,83 +159,58 @@ body {
   object-fit: cover;
 }
 
-/* ── FIXED: 11ch for "SOHAM PATEL", steps(11) ── */
+/*
+  SPLASH NAME FIX EXPLANATION:
+  - "SOHAM PATEL" = 11 characters
+  - Problem: `width: 12ch` with `steps(11)` was mismatched
+  - Old fix attempt: `11ch` still breaks on desktop because
+    `ch` unit = width of "0" glyph at that font-size,
+    which varies. So "11ch" at large font != exact text width.
+  - Real fix: animate width 0 → max-content using steps(11)
+    This reveals exactly 1 char per step, always full text at end.
+*/
 .splash_name_line {
-  /* exactly 11 characters wide at any font size */
-  width: 11ch;
+  width: 0;
   overflow: hidden;
   border-right: 2px solid var(--splash-caret);
-  opacity: 0;
   white-space: nowrap;
+  opacity: 0;
   animation:
     splash-name-type 1.25s steps(11, end) 0.65s forwards,
-    splash-caret 0.58s step-end 0.65s infinite,
-    splash-name-exit 0.4s ease 4.85s forwards;
+    splash-caret     0.58s step-end       0.65s infinite,
+    splash-name-exit 0.4s  ease           4.85s forwards;
   transition: border-color 0.4s ease;
 }
 
 .splash_name_text {
-  display: block;
+  display: inline-block;
   color: var(--splash-name-text);
-  /* responsive font — smaller on mobile, bigger on desktop */
-  font-size: clamp(1.1rem, 4.5vw, 2.75rem);
+  font-size: clamp(1.35rem, 5vw, 2.75rem);
   line-height: 1.1;
   white-space: nowrap;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   transition: color 0.4s ease;
-  letter-spacing: 0.05em;
 }
 
 @keyframes splash-logo {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
-  }
-
-  12% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  78% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.72);
-  }
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  12%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  78%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.72); }
 }
 
 @keyframes splash-name-type {
-  0% {
-    opacity: 1;
-    width: 0;
-  }
-
-  100% {
-    opacity: 1;
-    width: 11ch;
-  }
+  0%   { opacity: 1; width: 0; }
+  100% { opacity: 1; width: max-content; }
 }
 
 @keyframes splash-caret {
-  0%,
-  100% {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: var(--splash-caret);
-  }
+  0%, 100% { border-color: transparent; }
+  50%       { border-color: var(--splash-caret); }
 }
 
 @keyframes splash-name-exit {
-  to {
-    opacity: 0;
-    border-color: transparent;
-  }
+  to { opacity: 0; border-color: transparent; }
 }
 
 /* ============================================
@@ -319,56 +271,26 @@ html.light {
 }
 
 /* ============================================
-   RESPONSIVE FIXES
+   RESPONSIVE
    ============================================ */
 
-/* Mobile — extra small (< 375px) */
-@media (max-width: 374px) {
-  .splash_name_text {
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-  }
-
-  .splash_logo_symbol {
-    width: clamp(6rem, 60vw, 10rem);
-  }
-}
-
-/* Mobile — up to 640px */
 @media (max-width: 640px) {
-  /* Navbar links hidden on mobile — already handled by Tailwind */
-
-  /* Hero section code block font smaller */
-  .blink code {
-    font-size: 0.7rem;
-  }
-
-  /* Project card height fix on small screens */
   article.project-card {
     height: auto !important;
-    min-height: 420px;
+    min-height: 400px;
   }
 
-  /* Section headings spacing */
-  section {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-}
-
-/* Tablet — 641px to 1023px */
-@media (min-width: 641px) and (max-width: 1023px) {
   .splash_logo_symbol {
-    width: clamp(10rem, 22vw, 15rem);
-  }
-
-  article.project-card {
-    height: auto;
-    min-height: 380px;
+    width: clamp(8rem, 55vw, 12rem);
   }
 }
 
-/* Ensure images don't overflow on mobile */
+@media (max-width: 374px) {
+  .splash_logo_symbol {
+    width: clamp(6rem, 50vw, 9rem);
+  }
+}
+
 img {
   max-width: 100%;
   height: auto;
