@@ -138,21 +138,21 @@ function HeroSection() {
                 <span className="text-[var(--text-code-property)]">{`['`}</span>
                 <span className="text-[var(--text-code-string)]">React</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
-                <span className="text-[var(--text-code-string)]">NextJS</span>
+                <span className="text-[var(--text-code-string)]">NodeJS</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
                 <span className="text-[var(--text-code-string)]">Redux</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
                 <span className="text-[var(--text-code-string)]">Express</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
-                <span className="text-[var(--text-code-string)]">NestJS</span>
+                <span className="text-[var(--text-code-string)]">Flask</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
-                <span className="text-[var(--text-code-string)]">MySql</span>
+                <span className="text-[var(--text-code-string)]">FastAPI</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
                 <span className="text-[var(--text-code-string)]">MongoDB</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
-                <span className="text-[var(--text-code-string)]">Docker</span>
+                <span className="text-[var(--text-code-string)]">Python</span>
                 <span className="text-[var(--text-code-property)]">{"', '"}</span>
-                <span className="text-[var(--text-code-string)]">AWS</span>
+                <span className="text-[var(--text-code-string)]">Docker</span>
                 <span className="text-[var(--text-code-property)]">{"'],"}</span>
               </div>
               <div>
