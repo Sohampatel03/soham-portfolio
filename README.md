@@ -25,14 +25,13 @@
 
 ## 🌐 Live Demo
 
-[](https://soham-portfolio-ecru.vercel.app/)
+[>See](https://soham-portfolio-ecru.vercel.app/)
 
 ---
 
 ## 📸 Preview
 
-> Add a screenshot of your portfolio here after deployment.
-> `![Portfolio Screenshot](public/image/preview.png)`
+![Portfolio Screenshot](public/image/preview.png)
 
 ---
 
