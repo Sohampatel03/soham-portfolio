@@ -78,6 +78,12 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
+/* ============================================
+   SPLASH SCREEN
+   "SOHAM PATEL" = 11 chars (including space)
+   width: 11ch, steps(11, end)
+   ============================================ */
+
 .splash_logo_wrapper {
   position: fixed;
   inset: 0;
@@ -158,7 +164,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(10rem, 34vw, 19rem);
+  width: clamp(8rem, 28vw, 19rem);
   aspect-ratio: 1.23;
   padding: 0.6rem;
   border: 1px solid var(--splash-logo-border);
@@ -176,11 +182,14 @@ body {
   object-fit: cover;
 }
 
+/* ── FIXED: 11ch for "SOHAM PATEL", steps(11) ── */
 .splash_name_line {
-  width: 12ch;
+  /* exactly 11 characters wide at any font size */
+  width: 11ch;
   overflow: hidden;
   border-right: 2px solid var(--splash-caret);
   opacity: 0;
+  white-space: nowrap;
   animation:
     splash-name-type 1.25s steps(11, end) 0.65s forwards,
     splash-caret 0.58s step-end 0.65s infinite,
@@ -191,11 +200,13 @@ body {
 .splash_name_text {
   display: block;
   color: var(--splash-name-text);
-  font-size: clamp(1.35rem, 5vw, 2.75rem);
+  /* responsive font — smaller on mobile, bigger on desktop */
+  font-size: clamp(1.1rem, 4.5vw, 2.75rem);
   line-height: 1.1;
   white-space: nowrap;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   transition: color 0.4s ease;
+  letter-spacing: 0.05em;
 }
 
 @keyframes splash-logo {
@@ -228,7 +239,7 @@ body {
 
   100% {
     opacity: 1;
-    width: 12ch;
+    width: 11ch;
   }
 }
 
@@ -250,28 +261,23 @@ body {
   }
 }
 
-#sticky-card-1 {
-  --index: 1;
-}
+/* ============================================
+   STICKY PROJECT CARDS
+   ============================================ */
 
-#sticky-card-2 {
-  --index: 2;
-}
-
-#sticky-card-3 {
-  --index: 3;
-}
-
-#sticky-card-4 {
-  --index: 4;
-}
+#sticky-card-1 { --index: 1; }
+#sticky-card-2 { --index: 2; }
+#sticky-card-3 { --index: 3; }
+#sticky-card-4 { --index: 4; }
 
 .sticky-card {
-  // padding-top: calc(var(--index) * 2.5rem);
   top: calc(var(--index) * 4rem);
 }
 
-/* --- Classy Light Theme Cards & Buttons --- */
+/* ============================================
+   LIGHT THEME — GLOW CARDS & BUTTONS
+   ============================================ */
+
 html.light {
   .glow-card {
     background: var(--bg-card) !important;
@@ -279,8 +285,7 @@ html.light {
     -webkit-backdrop-filter: blur(10px) !important;
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04) !important;
     border-color: var(--border-secondary) !important;
-    
-    // Scale down card glowing effects to maintain premium elegance in light mode
+
     &::before, &::after {
       opacity: calc(var(--active, 0) * 0.35) !important;
     }
@@ -292,7 +297,6 @@ html.light {
     }
   }
 
-  // Elegant project card buttons in light mode
   .project-btn-pink {
     color: #db2777 !important;
     background-color: rgba(219, 39, 119, 0.08) !important;
@@ -312,4 +316,60 @@ html.light {
       border-color: rgba(15, 118, 110, 0.6) !important;
     }
   }
+}
+
+/* ============================================
+   RESPONSIVE FIXES
+   ============================================ */
+
+/* Mobile — extra small (< 375px) */
+@media (max-width: 374px) {
+  .splash_name_text {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .splash_logo_symbol {
+    width: clamp(6rem, 60vw, 10rem);
+  }
+}
+
+/* Mobile — up to 640px */
+@media (max-width: 640px) {
+  /* Navbar links hidden on mobile — already handled by Tailwind */
+
+  /* Hero section code block font smaller */
+  .blink code {
+    font-size: 0.7rem;
+  }
+
+  /* Project card height fix on small screens */
+  article.project-card {
+    height: auto !important;
+    min-height: 420px;
+  }
+
+  /* Section headings spacing */
+  section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Tablet — 641px to 1023px */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .splash_logo_symbol {
+    width: clamp(10rem, 22vw, 15rem);
+  }
+
+  article.project-card {
+    height: auto;
+    min-height: 380px;
+  }
+}
+
+/* Ensure images don't overflow on mobile */
+img {
+  max-width: 100%;
+  height: auto;
 }
