@@ -1,0 +1,315 @@
+@use "tailwindcss";
+
+:root {
+  --bg-primary: #0d1224;
+  --bg-secondary: #050816;
+  --bg-card: #101123;
+  --border-primary: rgba(27, 44, 104, 0.63);
+  --border-secondary: rgba(42, 46, 90, 0.8);
+  --text-primary: #ffffff;
+  --text-secondary: #d3d8e8;
+  --text-muted: #9ca3af;
+  --section-border: #25213b;
+  --input-bg: #10172d;
+  --input-border: #353a52;
+  --title-bg: #1a1443;
+  --title-text: #ffffff;
+  --bg-svg-opacity: 1;
+  --text-code-white: #ffffff;
+  --text-code-property: #d3d8e8;
+  --text-code-string: #fcd34d;
+  --text-code-boolean: #fb923c;
+  --text-code-keyword: #ec4899;
+  --text-code-function: #f87171;
+  --text-code-type: #22c55e;
+  --logo-text: #16f2b3;
+
+  /* Splash Screen Dark Mode */
+  --splash-bg: radial-gradient(circle at 50% 42%, rgba(22, 242, 179, 0.16), transparent 30%),
+               radial-gradient(circle at 28% 72%, rgba(236, 72, 153, 0.22), transparent 34%),
+               linear-gradient(135deg, #0d1224 0%, #10172f 48%, #1a1443 100%);
+  --splash-logo-bg: rgba(13, 18, 36, 0.78);
+  --splash-logo-border: rgba(22, 242, 179, 0.42);
+  --splash-logo-glow: 0 0 55px rgba(22, 242, 179, 0.2), inset 0 0 22px rgba(236, 72, 153, 0.08);
+  --splash-name-text: #ffffff;
+  --splash-caret: #16f2b3;
+}
+
+html.light {
+  --bg-primary: #fafafb;
+  --bg-secondary: #f4f4f5;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --border-primary: rgba(0, 0, 0, 0.06);
+  --border-secondary: rgba(0, 0, 0, 0.04);
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --section-border: rgba(0, 0, 0, 0.06);
+  --input-bg: #ffffff;
+  --input-border: rgba(0, 0, 0, 0.12);
+  --title-bg: #e4e4e7;
+  --title-text: #18181b;
+  --bg-svg-opacity: 0.08;
+  --text-code-white: #1f2937;
+  --text-code-property: #4b5563;
+  --text-code-string: #b45309;
+  --text-code-boolean: #c2410c;
+  --text-code-keyword: #db2777;
+  --text-code-function: #dc2626;
+  --text-code-type: #16a34a;
+  --logo-text: #ec4899;
+
+  /* Splash Screen Light Mode */
+  --splash-bg: radial-gradient(circle at 50% 42%, rgba(22, 242, 179, 0.12), transparent 35%),
+               radial-gradient(circle at 28% 72%, rgba(236, 72, 153, 0.18), transparent 40%),
+               linear-gradient(135deg, #fef2f2 0%, #f5f3ff 48%, #e0f2fe 100%);
+  --splash-logo-bg: rgba(255, 255, 255, 0.85);
+  --splash-logo-border: rgba(236, 72, 153, 0.35);
+  --splash-logo-glow: 0 10px 40px rgba(236, 72, 153, 0.12), inset 0 0 15px rgba(22, 242, 179, 0.05);
+  --splash-name-text: #1e1b4b;
+  --splash-caret: #ec4899;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.splash_logo_wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.splash_screen {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 100%;
+  background: var(--splash-bg);
+  animation: splash-grow 5.5s forwards;
+  transform: translateZ(0);
+  will-change: transform, border-radius;
+  transition: background 0.4s ease;
+}
+
+@keyframes splash-grow {
+  0% {
+    transform: scale(0);
+  }
+
+  10% {
+    transform: scale(1);
+    border-radius: 0%;
+    height: 100%;
+    width: 100%;
+  }
+
+  90% {
+    transform: scale(1);
+    border-radius: 0%;
+    height: 100%;
+    width: 100%;
+  }
+
+  100% {
+    transform: scale(0);
+    transform-origin: 50% 50%;
+    border-radius: 100%;
+  }
+}
+
+#logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.splash_logo_mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-shadow: 0 0 28px var(--splash-caret);
+  animation: splash-logo 5.5s forwards;
+  transition: text-shadow 0.4s ease;
+}
+
+.splash_logo_symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(10rem, 34vw, 19rem);
+  aspect-ratio: 1.23;
+  padding: 0.6rem;
+  border: 1px solid var(--splash-logo-border);
+  border-radius: 1rem;
+  background: var(--splash-logo-bg);
+  box-shadow: var(--splash-logo-glow);
+  transition: all 0.4s ease;
+}
+
+.splash_logo_image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+}
+
+.splash_name_line {
+  width: 12ch;
+  overflow: hidden;
+  border-right: 2px solid var(--splash-caret);
+  opacity: 0;
+  animation:
+    splash-name-type 1.25s steps(11, end) 0.65s forwards,
+    splash-caret 0.58s step-end 0.65s infinite,
+    splash-name-exit 0.4s ease 4.85s forwards;
+  transition: border-color 0.4s ease;
+}
+
+.splash_name_text {
+  display: block;
+  color: var(--splash-name-text);
+  font-size: clamp(1.35rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  transition: color 0.4s ease;
+}
+
+@keyframes splash-logo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  78% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+}
+
+@keyframes splash-name-type {
+  0% {
+    opacity: 1;
+    width: 0;
+  }
+
+  100% {
+    opacity: 1;
+    width: 12ch;
+  }
+}
+
+@keyframes splash-caret {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: var(--splash-caret);
+  }
+}
+
+@keyframes splash-name-exit {
+  to {
+    opacity: 0;
+    border-color: transparent;
+  }
+}
+
+#sticky-card-1 {
+  --index: 1;
+}
+
+#sticky-card-2 {
+  --index: 2;
+}
+
+#sticky-card-3 {
+  --index: 3;
+}
+
+#sticky-card-4 {
+  --index: 4;
+}
+
+.sticky-card {
+  // padding-top: calc(var(--index) * 2.5rem);
+  top: calc(var(--index) * 4rem);
+}
+
+/* --- Classy Light Theme Cards & Buttons --- */
+html.light {
+  .glow-card {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04) !important;
+    border-color: var(--border-secondary) !important;
+    
+    // Scale down card glowing effects to maintain premium elegance in light mode
+    &::before, &::after {
+      opacity: calc(var(--active, 0) * 0.35) !important;
+    }
+  }
+
+  .glows {
+    &::before, &::after {
+      opacity: calc(var(--active, 0) * 0.35) !important;
+    }
+  }
+
+  // Elegant project card buttons in light mode
+  .project-btn-pink {
+    color: #db2777 !important;
+    background-color: rgba(219, 39, 119, 0.08) !important;
+    border-color: rgba(219, 39, 119, 0.3) !important;
+    &:hover {
+      background-color: rgba(219, 39, 119, 0.15) !important;
+      border-color: rgba(219, 39, 119, 0.6) !important;
+    }
+  }
+
+  .project-btn-teal {
+    color: #0f766e !important;
+    background-color: rgba(15, 118, 110, 0.08) !important;
+    border-color: rgba(15, 118, 110, 0.3) !important;
+    &:hover {
+      background-color: rgba(15, 118, 110, 0.15) !important;
+      border-color: rgba(15, 118, 110, 0.6) !important;
+    }
+  }
+}
