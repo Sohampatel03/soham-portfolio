@@ -25,7 +25,7 @@
 
 ## 🌐 Live Demo
 
-> Add your Vercel deployment URL here after deploying.
+[](https://soham-portfolio-ecru.vercel.app/)
 
 ---
 
