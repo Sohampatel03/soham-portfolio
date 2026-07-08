@@ -18,7 +18,7 @@ function SplashLogo() {
         />
       </div>
       <div className="splash_name_line">
-        <span className="splash_name_text">SOHAM PATEL</span>
+        <span className="splash_name_text">Soham Patel</span>
       </div>
     </div>
   );
