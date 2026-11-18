@@ -19,6 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+      args:
+        - NEXT_PUBLIC_GTM=${NEXT_PUBLIC_GTM}
     container_name: demo-nextjs
     ports:
       - "3005:3000"

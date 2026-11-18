@@ -2,7 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiSun, FiMoon } from "react-icons/fi";
+import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
+
+const NAV_LINKS = [
+  { label: "ABOUT", href: "/#about" },
+  { label: "EXPERIENCE", href: "/#experience" },
+  { label: "SKILLS", href: "/#skills" },
+  { label: "EDUCATION", href: "/#education" },
+  { label: "PROJECTS", href: "/#projects" },
+  { label: "CONTACT", href: "/#contact" },
+];
 
 const replaySplash = (event) => {
   event.preventDefault();
@@ -12,7 +21,9 @@ const replaySplash = (event) => {
 function Navbar() {
   const [theme, setTheme] = useState("dark");
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     setMounted(true);
     const savedTheme = sessionStorage.getItem("portfolio-theme") || "dark";
@@ -34,7 +45,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-transparent">
+    <nav className="bg-transparent relative">
       <div className="flex items-center justify-between py-5">
         <div className="flex flex-shrink-0 items-center">
           <Link
@@ -46,33 +57,26 @@ function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <ul className="mt-4 flex h-screen max-h-0 w-full flex-col items-start text-sm opacity-0 md:mt-0 md:h-auto md:max-h-screen md:w-auto md:flex-row md:space-x-1 md:border-0 md:opacity-100" id="navbar-default">
-            <li>
-              <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#about">
-                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">ABOUT</div>
-              </Link>
-            </li>
-            <li>
-              <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#experience">
-                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">EXPERIENCE</div>
-              </Link>
-            </li>
-            <li>
-              <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#skills">
-                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">SKILLS</div>
-              </Link>
-            </li>
-            <li>
-              <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#education">
-                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">EDUCATION</div>
-              </Link>
-            </li>
-            <li>
-              <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href="/#projects">
-                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">PROJECTS</div>
-              </Link>
-            </li>
+          {/* Desktop nav links */}
+          <ul className="hidden md:flex md:space-x-1" id="navbar-default">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link className="block px-4 py-2 no-underline outline-none hover:no-underline" href={link.href}>
+                  <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">{link.label}</div>
+                </Link>
+              </li>
+            ))}
           </ul>
+
+          {/* Mobile hamburger button */}
+          <button
+            className="md:hidden p-2.5 rounded-full border border-[var(--border-primary)] bg-[var(--bg-card)] text-[var(--text-primary)] hover:text-pink-500 hover:border-pink-500/50 transition-all duration-300 flex items-center justify-center cursor-pointer"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+          </button>
 
           {mounted ? (
             <button
@@ -91,6 +95,23 @@ function Navbar() {
           )}
         </div>
       </div>
+
+      {/* Mobile dropdown panel */}
+      {menuOpen && (
+        <ul className="absolute inset-x-0 top-full z-[60] bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-md py-2 md:hidden">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                className="block px-6 py-3 no-underline outline-none hover:no-underline"
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+              >
+                <div className="text-sm text-[var(--text-primary)] transition-colors duration-300 hover:text-pink-600">{link.label}</div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
   );
 }

@@ -7,7 +7,7 @@ export const projectsData = [
     tools: ['React', 'Node.js', 'Express', 'Flask', 'Scikit-learn', 'Tailwind CSS'],
     role: 'Full Stack Developer',
     image: '/image/truthscan.png',
-    code: 'https://github.com/sohampatel03',
+    code: '', // TODO: add repo URL
     demo: 'https://fake-news-detection-ml-kohl.vercel.app/',
   },
   {
@@ -18,7 +18,7 @@ export const projectsData = [
     tools: ['MongoDB', 'Express', 'React', 'Node.js', 'FastAPI', 'Gemini AI', 'OCR', 'Cloudinary', 'JWT'],
     role: 'Full Stack Developer',
     image: '/image/mindvault.png',
-    code: 'https://github.com/sohampatel03',
+    code: '', // TODO: add repo URL
     demo: 'https://mind-vault-green.vercel.app/',
   },
   {
@@ -29,7 +29,7 @@ export const projectsData = [
     tools: ['MongoDB', 'Express', 'React', 'Node.js', 'Gemini API', 'JWT', 'Tailwind CSS'],
     role: 'Full Stack Developer',
     image: '/image/studyplanner.png',
-    code: 'https://github.com/sohampatel03',
+    code: '', // TODO: add repo URL
     demo: 'https://study-planner-with-ai.vercel.app/',
   },
 ];

@@ -32,7 +32,7 @@ function ProjectCard({ project }) {
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          {project.tools.slice(0, 4).map((tool) => (
+          {project.tools.map((tool) => (
             <span
               key={tool}
               className="rounded border border-[var(--border-primary)] bg-[var(--bg-primary)] px-2.5 py-1 text-xs text-[var(--logo-text)]"
